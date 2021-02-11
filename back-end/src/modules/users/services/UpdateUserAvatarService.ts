@@ -31,10 +31,11 @@ class UpdateUserAvatarService {
     if (user.avatar) {
       await this.storageProvider.deleteFile(user.avatar);
     }
-
     const fileName = await this.storageProvider.saveFile(avatarFilename);
 
     user.avatar = fileName;
+
+    await this.usersRepository.save(user);
 
     return user;
   }
