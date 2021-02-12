@@ -1,4 +1,3 @@
-// import { APP_API_URL, AWS_S3_BUCKET } from '@shared/utils/environment';
 import {
   Entity,
   Column,
@@ -7,7 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-// import storageConfig from '@config/storage';
+import uploadConfig from '@config/upload';
+
 import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
@@ -36,10 +36,15 @@ class User {
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
-    return this.avatar
-      ? `${process.env.APP_API_URL}/files/${this.avatar}`
-      : null;
+    if (!this.avatar) return null;
+    switch (uploadConfig.driver) {
+      case 'disk':
+        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+      case 's3':
+        return `https://${uploadConfig.config.aws.bucket}.s3.us-east-2.amazonaws.com/${this.avatar}`;
+      default:
+        return null;
+    }
   }
 }
-
 export default User;
