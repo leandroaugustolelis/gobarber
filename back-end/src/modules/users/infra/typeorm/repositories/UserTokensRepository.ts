@@ -1,8 +1,6 @@
-import { getRepository, Repository, Not } from 'typeorm';
-import User from '@modules/users/infra/typeorm/entities/User';
+import { getRepository, Repository } from 'typeorm';
 
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import UserToken from '../entities/UserToken';
 
