@@ -19,6 +19,6 @@ export default class ProviderAppointmentsController {
       year,
     });
 
-    return response.json(classToClass(appointments));
+    return response.status(200).json(classToClass(appointments));
   }
 }
