@@ -5,7 +5,6 @@ import signInBackgroundImg from '../../assets/sign-in-background.png';
 
 export const Container = styled.div`
   height: 100vh;
-
   display: flex;
   align-items: stretch;
 `;
@@ -40,7 +39,6 @@ export const AnimationContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   animation: ${appearFromLeft} 1s;
 
   form {

@@ -16,10 +16,16 @@ profileRouter.put(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      email: Joi.string().email().required(),
-      old_password: Joi.string(),
-      password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref('password')),
+      email: Joi.string().required(),
+      oldPassword: Joi.string(),
+      password: Joi.string().when('oldPassword', {
+        is: String,
+        then: Joi.string().required(),
+      }),
+      passwordConfirmation: Joi.string().when('oldPassword', {
+        is: String,
+        then: Joi.string().required().valid(Joi.ref('password')),
+      }),
     },
   }),
   profileController.update
