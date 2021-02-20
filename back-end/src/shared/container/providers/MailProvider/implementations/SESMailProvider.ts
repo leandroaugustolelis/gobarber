@@ -16,16 +16,11 @@ class SESMailProvider implements IMailProvider {
     @inject('MailTemplateProvider')
     mailTemplateProvider: IMailTemplateProvider
   ) {
-    aws.config.update({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: 'us-east-2',
-    });
-
     this.mailTemplateProvider = mailTemplateProvider;
     this.transporter = nodemailer.createTransport({
       SES: new aws.SES({
         apiVersion: '2010-12-01',
+        region: 'us-east-2',
       }),
     });
   }
